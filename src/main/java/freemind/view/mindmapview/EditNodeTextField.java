@@ -48,13 +48,12 @@ import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
 
-import com.inet.jortho.SpellChecker;
-
 import freemind.main.FreeMindCommon;
 import freemind.main.Resources;
 import freemind.main.Tools;
 import freemind.modes.MindMapNode;
 import freemind.modes.ModeController;
+import io.github.geniot.jortho.SpellChecker;
 
 /**
  * @author foltin

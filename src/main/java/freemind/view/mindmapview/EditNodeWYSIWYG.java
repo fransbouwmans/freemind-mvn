@@ -40,14 +40,15 @@ import javax.swing.text.html.HTMLDocument;
 
 import accessories.plugins.NodeNoteRegistration.SimplyHtmlResources;
 
-import com.inet.jortho.SpellChecker;
-import com.lightdev.app.shtm.SHTMLPanel;
+
 
 import freemind.main.FreeMindMain;
 import freemind.main.HtmlTools;
 import freemind.main.Resources;
 import freemind.main.Tools;
 import freemind.modes.ModeController;
+import io.github.geniot.jortho.SpellChecker;
+import io.github.geniot.shtml.SHTMLPanel;
 
 /**
  * @author Daniel Polansky

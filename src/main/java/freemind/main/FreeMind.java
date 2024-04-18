@@ -82,17 +82,15 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import com.inet.jortho.SpellChecker;
-
 import freemind.controller.Controller;
 import freemind.controller.LastStateStorageManagement;
 import freemind.controller.MenuBar;
 import freemind.controller.actions.generated.instance.MindmapLastStateStorage;
-import freemind.main.FreeMindStarter.ProxyAuthenticator;
 import freemind.modes.ModeController;
 import freemind.preferences.FreemindPropertyListener;
 import freemind.view.MapModule;
 import freemind.view.mindmapview.MapView;
+import io.github.geniot.jortho.SpellChecker;
 
 public class FreeMind extends JFrame implements FreeMindMain {
 
@@ -280,7 +278,6 @@ public class FreeMind extends JFrame implements FreeMindMain {
 			Properties pUserPreferences, File pAutoPropertiesFile) {
 		super("FreeMind");
 		// Focus searcher
-		System.setSecurityManager(new FreeMindSecurityManager());
 		defProps = pDefaultPreferences;
 		props = pUserPreferences;
 		autoPropertiesFile = pAutoPropertiesFile;
@@ -363,7 +360,6 @@ public class FreeMind extends JFrame implements FreeMindMain {
 				.changeAntialias(getProperty(FreeMindCommon.RESOURCE_ANTIALIAS));
 
 		setupSpellChecking();
-		setupProxy();
 		feedback.increase("FreeMind.progress.propageteLookAndFeel", null);
 		SwingUtilities.updateComponentTreeUI(this); // Propagate LookAndFeel to
 
@@ -972,19 +968,6 @@ public class FreeMind extends JFrame implements FreeMindMain {
 				freemind.main.Resources.getInstance().logException(e);
 				
 			}
-		}
-	}
-
-	private void setupProxy() {
-		// proxy settings
-		if("true".equals(props.getProperty(PROXY_USE_SETTINGS))) {
-			if ("true".equals(props.getProperty(PROXY_IS_AUTHENTICATED))) {
-				Authenticator.setDefault(new ProxyAuthenticator(props
-						.getProperty(PROXY_USER), Tools.decompress(props
-						.getProperty(PROXY_PASSWORD))));
-			}
-			System.setProperty("http.proxyHost", props.getProperty(PROXY_HOST));
-			System.setProperty("http.proxyPort", props.getProperty(PROXY_PORT));
 		}
 	}
 

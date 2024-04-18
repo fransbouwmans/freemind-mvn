@@ -1192,7 +1192,7 @@ public class Tools {
 	         * may not support 'key()' in freemind_join_mm_mmx.xslt.
 	         * Use saxon implement. */
 	        System.setProperty("javax.xml.transform.TransformerFactory",
-	                           "com.icl.saxon.TransformerFactoryImpl");
+	                           "net.sf.saxon.TransformerFactoryImpl");
 	        tf = TransformerFactory.newInstance();
 	        transformer = tf.newTransformer(xsltSource);
 	        transformer.setParameter("mmx_file", mmxFileFullName);

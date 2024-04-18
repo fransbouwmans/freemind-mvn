@@ -43,10 +43,9 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import com.inet.jortho.SpellChecker;
-
 import freemind.main.Tools;
 import freemind.modes.ModeController;
+import io.github.geniot.jortho.SpellChecker;
 
 /**
  * @author foltin

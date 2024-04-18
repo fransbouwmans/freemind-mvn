@@ -25,6 +25,7 @@ package freemind.main;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.net.Authenticator;
@@ -59,41 +60,9 @@ public class FreeMindStarter {
 		Properties userPreferences =
 				starter.readUsersPreferences(defaultPreferences);
 		starter.setDefaultLocale(userPreferences);
-
-		// Christopher Robin Elmersson: set
-		Toolkit xToolkit = Toolkit.getDefaultToolkit();
-
-		// workaround for java bug http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=7075600
-		System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
 		
 		try {
-			java.lang.reflect.Field awtAppClassNameField =
-					xToolkit.getClass().getDeclaredField("awtAppClassName");
-			awtAppClassNameField.setAccessible(true);
-			try {
-				awtAppClassNameField.set(xToolkit, "FreeMind");
-			} catch (java.lang.IllegalAccessException ex) {
-				System.err.println("Could not set window name");
-			}
-		} catch (NoSuchFieldException ex) {
-			// System.err.println("Could not get awtAppClassName");
-		}
-
-		// use reflection to call :
-		// FreeMind.main(args, defaultPreferences, userPreferences,
-		// starter.getUserPreferencesFile(defaultPreferences));
-		try {
-			Class mainClass = Class.forName("freemind.main.FreeMind");
-			Method mainMethod = mainClass.getMethod("main", new Class[] {
-					String[].class, Properties.class, Properties.class,
-					File.class });
-			mainMethod.invoke(null,
-							new Object[] {
-									args,
-									defaultPreferences,
-									userPreferences,
-									starter.getUserPreferencesFile(defaultPreferences) });
-
+			FreeMind.main(args, defaultPreferences, userPreferences, starter.getUserPreferencesFile(defaultPreferences));
 		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,
@@ -104,8 +73,8 @@ public class FreeMindStarter {
 	}
 
 	private void checkJavaVersion() {
-		System.out.println("Checking Java Version...");
-		if (JAVA_VERSION.compareTo("1.4.0") < 0) {
+		System.out.println("Checking Java Version... (found: " + JAVA_VERSION +")");
+		if (JAVA_VERSION.compareTo("11") < 0) {
 			String message = "Warning: FreeMind requires version Java 1.4.0 or higher (your version: "
 					+ JAVA_VERSION
 					+ ", installed in "
@@ -162,6 +131,11 @@ public class FreeMindStarter {
 		try {
 			InputStream in = null;
 			File autoPropertiesFile = getUserPreferencesFile(defaultPreferences);
+			if (!autoPropertiesFile.exists()) {
+				FileWriter fw = new FileWriter(autoPropertiesFile);
+				fw.write(" ");
+				fw.close();
+			}
 			in = new FileInputStream(autoPropertiesFile);
 			auto.load(in);
 			in.close();
@@ -203,19 +177,5 @@ public class FreeMindStarter {
 			System.err.println("Panic! Error while loading default properties.");
 		}
 		return props;
-	}
-	
-	public static class ProxyAuthenticator extends Authenticator {
-
-	    private String user, password;
-
-	    public ProxyAuthenticator(String user, String password) {
-	        this.user = user;
-	        this.password = password;
-	    }
-
-	    protected PasswordAuthentication getPasswordAuthentication() {
-	        return new PasswordAuthentication(user, password.toCharArray());
-	    }
 	}
 }

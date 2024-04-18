@@ -259,7 +259,7 @@ public class StylePatternFrame extends JPanel implements TextTranslator,
 		String form = "right:max(40dlu;p), 4dlu, 20dlu, 7dlu,right:max(40dlu;p), 4dlu, 80dlu, 7dlu";
 		FormLayout rightLayout = new FormLayout(form, "");
 		DefaultFormBuilder rightBuilder = new DefaultFormBuilder(rightLayout);
-		rightBuilder.setDefaultDialogBorder();
+		//rightBuilder.setDefaultDialogBorder();
 		mControls = getControls();
 		for (Iterator i = mControls.iterator(); i.hasNext();) {
 			PropertyControl control = (PropertyControl) i.next();
