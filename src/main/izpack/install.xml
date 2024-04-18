@@ -1,0 +1,64 @@
+<izpack:installation version="5.0"
+	xmlns:izpack="http://izpack.org/schema/installation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://izpack.org/schema/installation http://izpack.org/schema/5.0/izpack-installation-5.0.xsd">
+
+	<variables>
+		<variable name="DesktopShortcutCheckboxEnabled" value="true" />
+ 		<variable name="TargetPanel.dir" value="C:/Programs/Freemind"/>
+	</variables>
+
+	<!-- The info section. The meaning of the tags should be natural ... -->
+	<info>
+		<appname>${project.artifactId}</appname>
+		<appversion>${project.version}</appversion>
+		<javaversion>11</javaversion>
+	</info>
+
+
+	<!-- The gui preferences indication. Sets the installer window to 500x400. 
+		It will not be able to change the size. -->
+	<guiprefs width="600" height="500" resizable="yes" />
+
+	<!-- The locale section. Asks here to include the English and French langpacks. -->
+	<locale>
+		<langpack iso3="eng" />
+	</locale>
+
+	<natives>
+	<native type="izpack" name="ShellLink.dll" />
+	<native type="izpack" name="ShellLink_x64.dll" />
+	<native type="3rdparty" name="COIOSHelper.dll" stage="both">
+		<os family="windows" />
+	</native>
+	</natives>
+
+	<!-- The resources section. The ids must be these ones if you want to use 
+		the LicencePanel and/or the InfoPanel. -->
+	<resources>
+		<res id="LicencePanel.licence" src="License.txt" />
+		<res id="InfoPanel.info" src="Readme.txt" />
+		<res id="Installer.image" src="Install.png" />
+	</resources>
+
+
+	<!-- The panels section. We indicate here which panels we want to use. The 
+		order will be respected. -->
+	<panels>
+		<panel classname="HelloPanel" />
+		<panel classname="InfoPanel" />
+		<panel classname="LicencePanel" />
+		<panel classname="TargetPanel" />
+		<panel classname="InstallPanel" />
+		<panel classname="SimpleFinishPanel" />
+	</panels>
+
+	<!-- The packs section. We specify here our packs. -->
+	<packs>
+		<pack name="Base" required="yes">
+			<description>The base files</description>
+			<file src="License.txt" targetdir="$INSTALL_PATH" />
+			<fileset dir="./" targetdir="$INSTALL_PATH/bin" />
+		</pack>
+	</packs>
+
+</izpack:installation>

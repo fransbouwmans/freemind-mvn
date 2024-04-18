@@ -1,0 +1,1 @@
+Freemind is a tool that frees your mind.

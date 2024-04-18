@@ -1,0 +1,33 @@
+<shortcuts>
+  <skipIfNotSupported/>
+  <programGroup defaultName="Freemind" location="applications||startMenu"/>
+  <shortcut
+    name="Start Freemind"
+    target="$INSTALL_PATH\bin\freemind.cmd"
+    commandLine="" 
+    workingDirectory="$INSTALL_PATH\bin"
+    description="This starts Freemind"
+    iconIndex="0"
+    initialState="normal"
+    programGroup="yes"
+    desktop="yes"
+    applications="no"
+    startMenu="no"
+    startup="no">
+    <createForPack name="Base"/>
+  </shortcut>
+  <shortcut
+    name="Uninstall Freemind"
+    target="javaw"
+    commandLine="-jar uninstaller.jar"
+    workingDirectory="$INSTALL_PATH\Uninstaller"
+    description="This uninstalls Freemind"
+    initialState="normal"
+    programGroup="yes"
+    desktop="no"
+    applications="no"
+    startMenu="no"
+    startup="no">
+    <createForPack name="Base"/>
+  </shortcut>
+</shortcuts>
